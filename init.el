@@ -13,13 +13,14 @@
 								   (require 'asciidoc))))) 
 		       (:name lisppaste :type elpa))) 
 
-(setq my-packages (append '(el-get auto-complete zencoding-mode color-theme color-theme-tango emacs-w3m) (mapcar 'el-get-source-name el-get-sources))) 
+(setq my-packages (append '(el-get auto-complete zencoding-mode color-theme color-theme-tango emacs-w3m js2-mode coffee-mode) (mapcar 'el-get-source-name el-get-sources))) 
 (el-get 'sync my-packages)
 
 ;; settings
 (line-number-mode 1)
 (column-number-mode 1)
 (tool-bar-mode -1)
+(setq-default tab-width 4)
 
 (unless (string-match "apple-darwin" system-configuration)
   (menu-bar-mode -1))
@@ -45,3 +46,14 @@
  (global-set-key "\C-xm" 'browse-url-at-point)
 (setq w3m-use-cookies t)
 (setq w3m-display-inline-images t)
+
+;; coffee
+(defun coffee-custom ()
+  "coffee-mode-hook"
+  ;; CoffeeScript uses two spaces.
+  (make-local-variable 'tab-width)
+  (set 'tab-width 2)  
+  (define-key coffee-mode-map [(meta r)] 'coffee-compile-buffer))
+
+(add-hook 'coffee-mode-hook 'coffee-custom)
+
