@@ -13,7 +13,7 @@
 								   (require 'asciidoc))))) 
 		       (:name lisppaste :type elpa))) 
 
-(setq my-packages (append '(el-get auto-complete zencoding-mode color-theme color-theme-tango) (mapcar 'el-get-source-name el-get-sources))) 
+(setq my-packages (append '(el-get auto-complete zencoding-mode color-theme color-theme-tango emacs-w3m) (mapcar 'el-get-source-name el-get-sources))) 
 (el-get 'sync my-packages)
 
 ;; settings
@@ -38,3 +38,10 @@
 (global-set-key (kbd "C-x SPC") 'set-mark-command)
 (custom-set-variables '(x-select-enable-clipboard t))
 
+;; w3m
+ (setq browse-url-browser-function 'w3m-browse-url)
+ (autoload 'w3m-browse-url "w3m" "Ask a WWW browser to show a URL." t)
+ ;; optional keyboard short-cut
+ (global-set-key "\C-xm" 'browse-url-at-point)
+(setq w3m-use-cookies t)
+(setq w3m-display-inline-images t)
