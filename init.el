@@ -11,9 +11,26 @@
 				       (add-hook 'doc-mode-hook '(lambda () 
 								   (turn-on-auto-fill) 
 								   (require 'asciidoc))))) 
-		       (:name lisppaste :type elpa))) 
+		       (:name lisppaste :type elpa)
+		       (:name buffer-move :after(lambda()
+						  (global-set-key (kbd "<C-S-up>") 'buf-move-up)
+						  (global-set-key (kbd "<C-S-down>") 'buf-move-down)
+						  (global-set-key (kbd "<C-S-left>") 'buf-move-left)
+						  (global-set-key (kbd "<C-S-right>") 'buf-move-right)))
+		       (:name goto-last-change
+			      :after (lambda ()
+				       (global-set-key (kbd "C-x C-_") 'goto-last-change)))
+))
 
-(setq my-packages (append '(el-get auto-complete zencoding-mode color-theme color-theme-tango emacs-w3m js2-mode coffee-mode) (mapcar 'el-get-source-name el-get-sources))) 
+(setq my-packages (append '(el-get auto-complete switch-window zencoding-mode color-theme color-theme-tango emacs-w3m js2-mode coffee-mode) (mapcar 'el-get-source-name el-get-sources)))
+(when (el-get-executable-find "cvs")
+  (add-to-list 'my-packages 'emacs-goodies-el)) ; the debian addons for emacs
+
+(when (el-get-executable-find "svn")
+  (loop for p in '(psvn    ; M-x svn-status
+		   )
+	do (add-to-list 'my-packages p)))
+ 
 (el-get 'sync my-packages)
 
 ;; settings
@@ -26,6 +43,10 @@
   (menu-bar-mode -1))
 
 (global-linum-mode 1)
+;; whenever an external process changes a file underneath emacs, and there
+;; was no unsaved changes in the corresponding buffer, just revert its
+;; content to reflect what's on-disk.
+(global-auto-revert-mode 1)
 
 ;; under mac, have Command as Meta and keep Option for localized input
 (when (string-match "apple-darwin" system-configuration)
@@ -33,11 +54,16 @@
 
 (require 'dired-x) ;; C-x C-j
 
+;; use ido for minibuffer completion
+(require 'ido)
+(ido-mode t)
+(setq ido-save-directory-list-file "~/.emacs.d/.ido.last")
+(setq ido-enable-flex-matching t)
+(setq ido-use-filename-at-point 'guess)
+(setq ido-show-dot-for-dired t)
+
 ;(color-theme-tango)
 ;(color-theme-taming-mr-arneson)
-
-(global-set-key (kbd "C-x SPC") 'set-mark-command)
-(custom-set-variables '(x-select-enable-clipboard t))
 
 ;; w3m
  (setq browse-url-browser-function 'w3m-browse-url)
