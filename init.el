@@ -3,7 +3,7 @@
 
 ;; local sources 
 (setq el-get-sources '(
-		       (:name magit :after (lambda () (global-set-key (kbd "C-x C-z") 'magit-status))) 
+		       ;; (:name magit :after (lambda () (global-set-key (kbd "C-x C-z") 'magit-status))) 
 		       (:name asciidoc :type elpa 
 			      :after (lambda () 
 				       (autoload 'doc-mode "doc-mode" nil t) 
@@ -22,7 +22,7 @@
 				       (global-set-key (kbd "C-x C-_") 'goto-last-change)))
 ))
 
-(setq my-packages (append '(el-get auto-complete switch-window zencoding-mode color-theme color-theme-tango emacs-w3m js2-mode coffee-mode) (mapcar 'el-get-source-name el-get-sources)))
+(setq my-packages (append '(el-get auto-complete switch-window zencoding-mode color-theme color-theme-tango emacs-w3m js2-mode coffee-mode markdown-mode) (mapcar 'el-get-source-name el-get-sources)))
 (when (el-get-executable-find "cvs")
   (add-to-list 'my-packages 'emacs-goodies-el)) ; the debian addons for emacs
 
@@ -83,3 +83,11 @@
 
 (add-hook 'coffee-mode-hook 'coffee-custom)
 
+;; markdown
+;; (autoload 'markdown-mode "markdown-mode"
+;;  "Major mode for editing Markdown files" t)
+;;(setq auto-mode-alist
+;;  (cons '("\\.text" . markdown-mode) auto-mode-alist))
+(add-to-list 'auto-mode-alist '("\\.text$" . markdown-mode))
+(add-to-list 'auto-mode-alist '("\\.md$" . markdown-mode))
+;; (add-to-list 'auto-mode-alist '("\\.text$" . markdown-mode))
