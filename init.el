@@ -62,8 +62,15 @@
 (setq ido-use-filename-at-point 'guess)
 (setq ido-show-dot-for-dired t)
 
-;(color-theme-tango)
-;(color-theme-taming-mr-arneson)
+;(color-theme-andreas)
+
+;arjen, billw, black-on-grey, blue-mood, blue-sea, calm-forest, dark-laptop, digital-ofs1, euphoria, fischmeister, 
+;
+;white: greiner, high-contrast, jb-simple, jedit-gray*, jsc-light, katester, mistyday, montz*, 
+;black: hober, lawrence, lethe, oswald, renegade
+;blue: resolve, 
+;other: infodoc
+
 
 ;; w3m
  (setq browse-url-browser-function 'w3m-browse-url)
