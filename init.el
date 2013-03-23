@@ -1,30 +1,49 @@
 (add-to-list 'load-path "~/.emacs.d/el-get/el-get")
-(require 'el-get)
+
+(unless (require 'el-get nil 'noerror)
+  (with-current-buffer
+      (url-retrieve-synchronously
+       "https://raw.github.com/dimitri/el-get/master/el-get-install.el")
+    (goto-char (point-max))
+    (eval-print-lastsexp)))
+
+;; (el-get 'sync)
 
 ;; local sources 
-(setq el-get-sources '(
-		       ;; (:name magit :after (lambda () (global-set-key (kbd "C-x C-z") 'magit-status))) 
-		       (:name asciidoc :type elpa 
-			      :after (lambda () 
-				       (autoload 'doc-mode "doc-mode" nil t) 
-				       (add-to-list 'auto-mode-alist '("\\.adoc$" . doc-mode)) 
-				       (add-hook 'doc-mode-hook '(lambda () 
-								   (turn-on-auto-fill) 
-								   (require 'asciidoc))))) 
+(setq el-get-sources 
+      '((:name magit	     
+	       :after (global-set-key (kbd "C-x C-z") 'magit-status))
+
+	(:name asciidoc 
+	       :type elpa 
+	       :after (progn 
+			(autoload 'doc-mode "doc-mode" nil t) 
+			(add-to-list 'auto-mode-alist '("\\.adoc$" . doc-mode)) 
+			(add-hook 'doc-mode-hook 
+				  '(lambda () 
+				     (turn-on-auto-fill) 
+				     (require 'asciidoc))))) 
+
 		       (:name lisppaste :type elpa)
-		       (:name buffer-move :after(lambda()
+
+		      (:name emacs-goodies-el :type apt-get)
+
+		       (:name buffer-move :after(progn
 						  (global-set-key (kbd "<C-S-up>") 'buf-move-up)
 						  (global-set-key (kbd "<C-S-down>") 'buf-move-down)
 						  (global-set-key (kbd "<C-S-left>") 'buf-move-left)
 						  (global-set-key (kbd "<C-S-right>") 'buf-move-right)))
 		       (:name goto-last-change
-			      :after (lambda ()
+			      :after (progn
 				       (global-set-key (kbd "C-x C-_") 'goto-last-change)))
 ))
 
-(setq my-packages (append '(el-get auto-complete switch-window zencoding-mode color-theme color-theme-tango emacs-w3m js2-mode coffee-mode markdown-mode) (mapcar 'el-get-source-name el-get-sources)))
-(when (el-get-executable-find "cvs")
-  (add-to-list 'my-packages 'emacs-goodies-el)) ; the debian addons for emacs
+(setq my-packages 
+      (append 
+       '(cssh el-get auto-complete switch-window vkill zencoding-mode color-theme color-theme-tango emacs-w3m js2-mode coffee-mode markdown-mode nxhtml xcscope yasnippet) 
+       (mapcar 'el-get-source-name el-get-sources)))
+;; (when (el-get-executable-find "cvs")
+;;  (add-to-list 'my-packages 'emacs-goodies-el)) ; the debian addons for emacs
 
 (when (el-get-executable-find "svn")
   (loop for p in '(psvn    ; M-x svn-status
@@ -42,7 +61,7 @@
 (unless (string-match "apple-darwin" system-configuration)
   (menu-bar-mode -1))
 
-(global-linum-mode 1)
+;; (global-linum-mode 1)
 ;; whenever an external process changes a file underneath emacs, and there
 ;; was no unsaved changes in the corresponding buffer, just revert its
 ;; content to reflect what's on-disk.
@@ -98,3 +117,5 @@
 (add-to-list 'auto-mode-alist '("\\.text$" . markdown-mode))
 (add-to-list 'auto-mode-alist '("\\.md$" . markdown-mode))
 ;; (add-to-list 'auto-mode-alist '("\\.text$" . markdown-mode))
+
+;; (require 'inf-ruby)
