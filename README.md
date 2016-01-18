@@ -1,4 +1,6 @@
-emacs-init-config
+Housekeeping
 =================
 
-emacs init.el
+* brew
+
+* emacs
