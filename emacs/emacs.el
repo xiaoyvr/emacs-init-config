@@ -4,8 +4,13 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(column-number-mode t)
+ '(display-time-mode t)
  '(global-linum-mode t)
+ '(global-visual-line-mode t)
  '(golden-ratio-mode t)
+ '(ido-mode (quote both) nil (ido))
+ '(ispell-extra-args (quote ("--lang=en")))
+ '(ispell-program-name "aspell")
  '(package-archives
    (quote
     (("gnu" . "http://eLpa.gnu.org/packages/")
@@ -41,7 +46,7 @@
 
 (setq my-packages
       (append
-       '(cssh el-get package switch-window vkill golden-ratio osx-clipboard htmlize linum-ex markdown-mode org-plus-contrib)
+       '(cssh el-get package switch-window vkill golden-ratio osx-clipboard htmlize linum-ex markdown-mode org-plus-contrib expand-region)
        (mapcar 'el-get-source-name el-get-sources)))
 
 (el-get-cleanup my-packages)
@@ -50,8 +55,10 @@
 (global-set-key (kbd "C-c c") 'org-capture)
 (global-set-key (kbd "C-c l") 'org-store-link)
 (global-set-key (kbd "C-c a") 'org-agenda)
-(global-set-key (kbd "C-c b") 'org-iswitchb)
+;; (global-set-key (kbd "C-c b") 'org-iswitchb)
 ;; (global-set-key (kbd "C-x o") 'switch-window)
+(global-set-key (kbd "C-x w") 'er/expand-region)
 
 (golden-ratio-mode t)
+(osx-clipboard-mode t)
 
