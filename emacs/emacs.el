@@ -46,7 +46,7 @@
 
 (setq my-packages
       (append
-       '(cssh el-get package switch-window vkill golden-ratio osx-clipboard htmlize linum-ex markdown-mode org-plus-contrib expand-region)
+       '(cssh el-get package switch-window vkill golden-ratio osx-clipboard htmlize linum-ex markdown-mode org-plus-contrib expand-region haskell-mode)
        (mapcar 'el-get-source-name el-get-sources)))
 
 (el-get-cleanup my-packages)
