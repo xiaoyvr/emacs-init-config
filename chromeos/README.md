@@ -12,11 +12,11 @@
 * [ ] ssh
 * [ ] tmux
 * [ ] setup vim with plugins
-* [ ] docker
+* [x] docker
 * [ ] plantuml-server docker image
 * [ ] vscode, plugins
-* [ ] fish shell
 
 ### Optional
 
-* [ ]  dotnet and fsharp
+* [ ] dotnet and fsharp
+* [ ] fish shell
