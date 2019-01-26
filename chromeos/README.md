@@ -14,7 +14,8 @@
 * [ ] setup vim with plugins
 * [x] docker
 * [ ] plantuml-server docker image
-* [ ] vscode, plugins
+* [x] vscode 
+* [ ] vscode plugins
 
 ### Optional
 
