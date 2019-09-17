@@ -1,0 +1,1 @@
+sudo ln -s /home/username/.config/fish/fish_variables /opt/pycharm/plugins/terminal/fish/fish_variables
